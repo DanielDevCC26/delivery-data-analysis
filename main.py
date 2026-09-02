@@ -87,7 +87,43 @@ print("\n--- RECEITA MENSAL ---")
 print(receita_mensal)
 
 print("\n--- MAIOR RECEITA MENSAL ---")
-print(receita_mensal.sort_values(
+print(
+    receita_mensal.sort_values(
+        by="Receita_Item",
+        ascending=False
+    ).head(1)
+)
+
+
+# Cruzamento com o cardápio
+cardapio = pd.read_csv("cardapio.csv")
+
+print("\n--- CARDÁPIO ---")
+print(cardapio.head())
+
+dados_completos = pedidos.merge(
+    cardapio,
+    on="Item",
+    how="left"
+)
+
+print("\n--- DADOS APÓS O MERGE ---")
+print(
+    dados_completos[
+        ["Item", "Categoria", "Quantidade", "Receita_Item"]
+    ].head()
+)
+
+
+# Receita por categoria
+receita_categoria = dados_completos.groupby(
+    "Categoria"
+)["Receita_Item"].sum().reset_index()
+
+receita_categoria = receita_categoria.sort_values(
     by="Receita_Item",
     ascending=False
-).head(1))
+)
+
+print("\n--- RECEITA POR CATEGORIA ---")
+print(receita_categoria)
