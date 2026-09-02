@@ -44,8 +44,35 @@ pedidos["Quantidade"] = pedidos["Quantidade"].fillna(media_quantidade)
 
 pedidos = pedidos.dropna(subset=["Preco_Unitario"])
 
-# Recalcula a receita após o tratamento
 pedidos["Receita_Item"] = pedidos["Quantidade"] * pedidos["Preco_Unitario"]
 
 print("\n--- VALORES AUSENTES APÓS O TRATAMENTO ---")
 print(pedidos.isnull().sum())
+
+
+# Agregações por item
+resumo_itens = pedidos.groupby("Item").agg(
+    Quantidade_Total=("Quantidade", "sum"),
+    Receita_Total=("Receita_Item", "sum")
+).reset_index()
+
+print("\n--- RESUMO POR ITEM ---")
+print(resumo_itens)
+
+
+top_5_quantidade = resumo_itens.sort_values(
+    by="Quantidade_Total",
+    ascending=False
+).head(5)
+
+print("\n--- TOP 5 ITENS MAIS VENDIDOS ---")
+print(top_5_quantidade)
+
+
+top_5_receita = resumo_itens.sort_values(
+    by="Receita_Total",
+    ascending=False
+).head(5)
+
+print("\n--- TOP 5 ITENS COM MAIOR RECEITA ---")
+print(top_5_receita)
