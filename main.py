@@ -127,3 +127,40 @@ receita_categoria = receita_categoria.sort_values(
 
 print("\n--- RECEITA POR CATEGORIA ---")
 print(receita_categoria)
+
+
+# Categoria com maior receita
+categoria_maior_receita = receita_categoria.head(1)
+
+print("\n--- CATEGORIA COM MAIOR RECEITA ---")
+print(categoria_maior_receita)
+
+
+# Filtro de salgados com quantidade maior que 10
+salgados_filtrados = dados_completos[
+    (dados_completos["Categoria"] == "Salgados")
+    & (dados_completos["Quantidade"] > 10)
+]
+
+print("\n--- SALGADOS COM QUANTIDADE MAIOR QUE 10 ---")
+print(
+    salgados_filtrados[
+        ["ID_Pedido", "Item", "Quantidade", "Preco_Unitario", "Receita_Item"]
+    ]
+)
+
+
+# KPIs
+receita_total = dados_completos["Receita_Item"].sum()
+
+total_itens_vendidos = dados_completos["Quantidade"].sum()
+
+numero_pedidos = dados_completos["ID_Pedido"].nunique()
+
+ticket_medio = receita_total / numero_pedidos
+
+print("\n--- KPIs ---")
+print(f"Receita Total: R$ {receita_total:.2f}")
+print(f"Total de Itens Vendidos: {total_itens_vendidos:.2f}")
+print(f"Número de Pedidos: {numero_pedidos}")
+print(f"Ticket Médio: R$ {ticket_medio:.2f}")
