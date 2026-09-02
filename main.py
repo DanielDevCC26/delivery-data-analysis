@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-pedidos = pd.read_csv("pedidos.csv")
+pedidos = pd.read_csv("dados/pedidos.csv")
 
 # Análise exploratória
 print("\n--- PRIMEIRAS LINHAS ---")
@@ -96,7 +96,7 @@ print(
 
 
 # Cruzamento com o cardápio
-cardapio = pd.read_csv("cardapio.csv")
+cardapio = pd.read_csv("dados/cardapio.csv")
 
 print("\n--- CARDÁPIO ---")
 print(cardapio.head())
