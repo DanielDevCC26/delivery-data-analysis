@@ -164,3 +164,25 @@ print(f"Receita Total: R$ {receita_total:.2f}")
 print(f"Total de Itens Vendidos: {total_itens_vendidos:.2f}")
 print(f"Número de Pedidos: {numero_pedidos}")
 print(f"Ticket Médio: R$ {ticket_medio:.2f}")
+
+
+# Percentis com NumPy
+percentis_preco = np.percentile(
+    pedidos["Preco_Unitario"],
+    [25, 50, 75]
+)
+
+percentis_quantidade = np.percentile(
+    pedidos["Quantidade"],
+    [25, 50, 75]
+)
+
+print("\n--- PERCENTIS DO PREÇO UNITÁRIO ---")
+print(f"25%: R$ {percentis_preco[0]:.2f}")
+print(f"50%: R$ {percentis_preco[1]:.2f}")
+print(f"75%: R$ {percentis_preco[2]:.2f}")
+
+print("\n--- PERCENTIS DA QUANTIDADE ---")
+print(f"25%: {percentis_quantidade[0]:.2f}")
+print(f"50%: {percentis_quantidade[1]:.2f}")
+print(f"75%: {percentis_quantidade[2]:.2f}")
