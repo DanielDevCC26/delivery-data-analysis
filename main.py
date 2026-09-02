@@ -59,7 +59,6 @@ resumo_itens = pedidos.groupby("Item").agg(
 print("\n--- RESUMO POR ITEM ---")
 print(resumo_itens)
 
-
 top_5_quantidade = resumo_itens.sort_values(
     by="Quantidade_Total",
     ascending=False
@@ -68,7 +67,6 @@ top_5_quantidade = resumo_itens.sort_values(
 print("\n--- TOP 5 ITENS MAIS VENDIDOS ---")
 print(top_5_quantidade)
 
-
 top_5_receita = resumo_itens.sort_values(
     by="Receita_Total",
     ascending=False
@@ -76,3 +74,20 @@ top_5_receita = resumo_itens.sort_values(
 
 print("\n--- TOP 5 ITENS COM MAIOR RECEITA ---")
 print(top_5_receita)
+
+
+# Análise temporal
+pedidos["Data"] = pd.to_datetime(pedidos["Data"])
+
+pedidos["Mes"] = pedidos["Data"].dt.to_period("M")
+
+receita_mensal = pedidos.groupby("Mes")["Receita_Item"].sum().reset_index()
+
+print("\n--- RECEITA MENSAL ---")
+print(receita_mensal)
+
+print("\n--- MAIOR RECEITA MENSAL ---")
+print(receita_mensal.sort_values(
+    by="Receita_Item",
+    ascending=False
+).head(1))
