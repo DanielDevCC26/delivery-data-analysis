@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 pedidos = pd.read_csv("dados/pedidos.csv")
@@ -128,6 +129,80 @@ receita_categoria = receita_categoria.sort_values(
 print("\n--- RECEITA POR CATEGORIA ---")
 print(receita_categoria)
 
+# Gráfico - Receita por Categoria
+ax = receita_categoria.plot(
+    x="Categoria",
+    y="Receita_Item",
+    kind="bar",
+    figsize=(10, 6),
+    legend=False
+)
+
+plt.title("Receita por Categoria")
+plt.xlabel("Categoria")
+plt.ylabel("Receita (R$)")
+plt.xticks(rotation=45)
+
+# Adiciona o valor de receita acima de cada barra
+for container in ax.containers:
+    ax.bar_label(
+        container,
+        fmt="R$ %.2f",
+        padding=3
+    )
+
+plt.tight_layout()
+plt.savefig("graficos/receita_por_categoria.png", dpi=300, bbox_inches="tight")
+
+# Gráfico - Evolução Mensal da Receita
+plt.figure(figsize=(12, 6))
+
+plt.plot(
+    receita_mensal["Mes"].astype(str),
+    receita_mensal["Receita_Item"],
+    marker="o"
+)
+
+plt.title("Evolução Mensal da Receita")
+plt.xlabel("Mês")
+plt.ylabel("Receita (R$)")
+plt.xticks(
+    ticks=range(0, len(receita_mensal), 3),
+    labels=receita_mensal["Mes"].astype(str)[::3],
+    rotation=45
+)
+plt.grid(axis="y", alpha=0.3)
+
+plt.tight_layout()
+plt.savefig("graficos/evolucao_receita_mensal.png", dpi=300, bbox_inches="tight")
+
+# Top 5 itens por receita
+top5_receita = resumo_itens.nlargest(5, "Receita_Total")
+
+# Gráfico - Top 5 Itens por Receita
+ax = top5_receita.sort_values("Receita_Total").plot(
+    x="Item",
+    y="Receita_Total",
+    kind="barh",
+    figsize=(10, 6),
+    legend=False
+)
+
+plt.title("Top 5 Itens por Receita")
+plt.xlabel("Receita (R$)")
+plt.ylabel("Item")
+
+# Adiciona os valores nas barras
+for container in ax.containers:
+    ax.bar_label(
+        container,
+        fmt="R$ %.2f",
+        padding=3
+    )
+
+plt.tight_layout()
+plt.savefig("graficos/top_5_itens_receita.png", dpi=300, bbox_inches="tight")
+plt.show()
 
 # Categoria com maior receita
 categoria_maior_receita = receita_categoria.head(1)

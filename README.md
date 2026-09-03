@@ -1,16 +1,17 @@
 # Delivery Data Analysis
 
-Projeto de análise de dados de pedidos de um serviço de delivery utilizando Python, Pandas e NumPy.
+Projeto de análise de dados de pedidos de um serviço de delivery utilizando Python, Pandas, NumPy e Matplotlib.
 
 ## Objetivo
 
-O projeto tem como objetivo explorar, tratar e analisar dados de pedidos, criando indicadores e extraindo informações relevantes sobre vendas, produtos, categorias e comportamento ao longo do tempo.
+O projeto tem como objetivo explorar, tratar e analisar dados de pedidos, criando indicadores, visualizações e extraindo informações relevantes sobre vendas, produtos, categorias e comportamento ao longo do tempo.
 
 ## Tecnologias utilizadas
 
 - Python
 - Pandas
 - NumPy
+- Matplotlib
 
 ## Estrutura do projeto
 
@@ -19,6 +20,10 @@ delivery-data-analysis/
 ├── dados/
 │   ├── pedidos.csv
 │   └── cardapio.csv
+├── graficos/
+│   ├── evolucao_receita_mensal.png
+│   ├── receita_por_categoria.png
+│   └── top_5_itens_receita.png
 ├── main.py
 └── README.md
 ```
@@ -27,18 +32,17 @@ delivery-data-analysis/
 
 O projeto inclui:
 
-- carregamento dos dados com Pandas;
-- análise exploratória com `head()`, `tail()`, `info()` e `describe()`;
+- carregamento e exploração dos dados com Pandas;
 - identificação e tratamento de valores ausentes;
 - criação da coluna `Receita_Item`;
 - agrupamento e análise dos produtos;
 - identificação dos produtos mais vendidos e com maior receita;
-- análise da receita ao longo do tempo;
-- cruzamento dos pedidos com os dados do cardápio;
+- análise da evolução mensal da receita;
+- cruzamento dos pedidos com informações do cardápio;
 - análise de receita por categoria;
-- filtro de Salgados com quantidade maior que 10;
 - cálculo de KPIs;
-- cálculo de percentis utilizando NumPy.
+- cálculo de percentis utilizando NumPy;
+- criação de visualizações utilizando Matplotlib.
 
 ## Tratamento dos dados
 
@@ -46,7 +50,7 @@ Os valores ausentes da coluna `Quantidade` foram preenchidos com a média da pr�
 
 Os registros sem informação em `Preco_Unitario` foram removidos.
 
-A receita de cada item foi calculada por meio da multiplicação da quantidade pelo preço unitário.
+Após o tratamento, a receita de cada item foi calculada pela multiplicação da quantidade pelo preço unitário.
 
 ## Principais resultados
 
@@ -54,10 +58,32 @@ A receita de cada item foi calculada por meio da multiplicação da quantidade p
 - Item com maior receita: **Pizza Calabresa**
 - Categoria com maior receita: **Salgados — R$ 53.073,30**
 - Mês com maior receita: **Fevereiro de 2023 — R$ 6.646,03**
-- Receita Total: **R$ 122.652,59**
-- Total de Itens Vendidos: **6.833,25**
-- Número de Pedidos analisados: **430**
-- Ticket Médio: **R$ 285,24**
+- Receita total: **R$ 122.652,59**
+- Total de itens vendidos: **6.833,25**
+- Número de pedidos analisados: **430**
+- Ticket médio: **R$ 285,24**
+
+Um dos principais insights da análise é que o produto com maior quantidade vendida não é necessariamente o produto responsável pela maior receita. Enquanto o **Hamburguer** liderou em quantidade, a **Pizza Calabresa** apresentou o maior faturamento.
+
+## Visualizações
+
+### Receita por categoria
+
+![Receita por categoria](graficos/receita_por_categoria.png)
+
+A categoria **Salgados** apresentou a maior receita no período analisado, alcançando aproximadamente R$ 53 mil.
+
+### Evolução mensal da receita
+
+![Evolução mensal da receita](graficos/evolucao_receita_mensal.png)
+
+A análise temporal permite observar as oscilações da receita ao longo do período, com o maior resultado registrado em **fevereiro de 2023**.
+
+### Top 5 itens por receita
+
+![Top 5 itens por receita](graficos/top_5_itens_receita.png)
+
+A **Pizza Calabresa** apresentou a maior receita entre os produtos analisados, seguida pela Pizza Mussarela e pelo Sushi 8 peças.
 
 ## Percentis
 
@@ -78,7 +104,7 @@ A receita de cada item foi calculada por meio da multiplicação da quantidade p
 Instale as dependências:
 
 ```bash
-pip install pandas numpy
+pip install pandas numpy matplotlib
 ```
 
 Execute o projeto:
@@ -87,6 +113,8 @@ Execute o projeto:
 python main.py
 ```
 
+Ao executar o programa, as visualizações também são salvas automaticamente na pasta `graficos`.
+
 ## Autor
 
-Projeto desenvolvido como exercício prático de análise de dados.
+Projeto desenvolvido como exercício prático durante meus estudos de Data Analytics na Rocketseat.
